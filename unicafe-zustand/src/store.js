@@ -29,6 +29,10 @@ const useAnecdoteStore = create((set) => ({
           : anecdote
       ),
     })),
+  createAnecdote: (content) =>
+    set((state) => ({
+      anecdotes: [...state.anecdotes, asObject(content)],
+    })),
 }))
 
 export default useAnecdoteStore
