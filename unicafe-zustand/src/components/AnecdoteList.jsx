@@ -1,6 +1,6 @@
 import useAnecdoteStore from '../store'
 
-const AnecdoteList = ({ filter }) => {
+const AnecdoteList = ({ filter = '' }) => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes)
   const vote = useAnecdoteStore((state) => state.vote)
 

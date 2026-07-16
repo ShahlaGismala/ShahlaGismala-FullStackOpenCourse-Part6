@@ -11,10 +11,10 @@ const useAnecdoteStore = create((set) => ({
           : anecdote
       ),
     })),
-  createAnecdote: (content) =>
+  createAnecdote: (anecdote) =>
     set((state) => ({
-      anecdotes: [...state.anecdotes, { content, id: Date.now().toString(), votes: 0 }],
-    })),
+        anecdotes: [...state.anecdotes, anecdote],
+  })),
 }))
 
 export default useAnecdoteStore
