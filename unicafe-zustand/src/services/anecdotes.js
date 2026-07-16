@@ -12,3 +12,12 @@ export const createNew = async (content) => {
   })
   return response.json()
 }
+
+export const update = async (id, newObject) => {
+  const response = await fetch(`${baseUrl}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newObject),
+  })
+  return response.json()
+}
