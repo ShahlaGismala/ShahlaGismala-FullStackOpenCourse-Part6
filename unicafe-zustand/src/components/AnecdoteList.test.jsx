@@ -23,4 +23,22 @@ describe('<AnecdoteList />', () => {
 
     expect(contents).toEqual(['most votes', 'few votes', 'no votes'])
   })
+
+  it('renders only anecdotes that match the filter', () => {
+        render(<AnecdoteList filter="most" />)
+
+        const contents = screen
+            .getAllByTestId('anecdote-content')
+            .map((el) => el.textContent)
+
+        expect(contents).toEqual(['most votes'])
+   })
+
+    it('renders nothing when no anecdote matches the filter', () => {
+    render(<AnecdoteList filter="nonexistent" />)
+
+    const contents = screen.queryAllByTestId('anecdote-content')
+
+    expect(contents).toHaveLength(0)
+    })
 })
