@@ -2,13 +2,17 @@ import useAnecdoteStore from '../store'
 import useNotificationStore from '../notificationStore'
 import { remove } from '../services/anecdotes'
 
-const AnecdoteList = () => {
+const AnecdoteList = ({ filter }) => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes)
   const vote = useAnecdoteStore((state) => state.vote)
   const removeAnecdote = useAnecdoteStore((state) => state.removeAnecdote)
   const setNotification = useNotificationStore((state) => state.setNotification)
 
-  const sortedAnecdotes = anecdotes.toSorted((a, b) => b.votes - a.votes)
+  const filteredAnecdotes = anecdotes.filter((anecdote) =>
+    anecdote.content.toLowerCase().includes(filter.toLowerCase())
+  )
+
+  const sortedAnecdotes = filteredAnecdotes.toSorted((a, b) => b.votes - a.votes)
 
   const handleVote = (anecdote) => {
     vote(anecdote.id)
