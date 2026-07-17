@@ -1,14 +1,17 @@
 import useAnecdoteStore from '../store'
+import useNotificationStore from '../notificationStore'
 
-const AnecdoteList = ({ filter = '' }) => {
+const AnecdoteList = () => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes)
   const vote = useAnecdoteStore((state) => state.vote)
+  const setNotification = useNotificationStore((state) => state.setNotification)
 
-  const filteredAnecdotes = anecdotes.filter((anecdote) =>
-    anecdote.content.toLowerCase().includes(filter.toLowerCase())
-  )
+  const sortedAnecdotes = anecdotes.toSorted((a, b) => b.votes - a.votes)
 
-  const sortedAnecdotes = filteredAnecdotes.toSorted((a, b) => b.votes - a.votes)
+  const handleVote = (anecdote) => {
+    vote(anecdote.id)
+    setNotification(`You voted '${anecdote.content}'`, 5)
+  }
 
   return (
     <div>
@@ -17,7 +20,7 @@ const AnecdoteList = ({ filter = '' }) => {
           <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => handleVote(anecdote)}>vote</button>
           </div>
         </div>
       ))}
